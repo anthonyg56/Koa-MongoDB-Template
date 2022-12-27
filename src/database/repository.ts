@@ -32,12 +32,12 @@ export default class Repository<T> implements IWrite<T>, IRead<T>, IReadWrite<T>
     this.collectionName = name
     this.collection = this.db.collection(name)
   }
-
-  /* Write Opperations */
+  
+  /* Read Opperations */
   find = async (query?: FilterQuery<T>): Promise<Cursor<T>> => this.collection.find<T>(query)
   findOne = async (query: FilterQuery<T>): Promise<T | null> => await this.collection.findOne<T>(query)
-
-  /* Read Opperations */
+  
+  /* Write Opperations */
   insertOne = async (doc: OptionalId<T>): Promise<InsertOneWriteOpResult<WithId<T>>> => await this.collection.insertOne(doc)
   insertMany = async (docs: OptionalId<T>[]): Promise<InsertWriteOpResult<WithId<T>>> => await this.collection.insertMany(docs)
   updateOne = async (params: UpdateParams<T>): Promise<UpdateWriteOpResult> => await this.collection.updateOne(params.filter, params.update, params.options)
